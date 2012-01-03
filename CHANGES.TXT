@@ -9,12 +9,18 @@ is no set schedule for releases.
 --TODO--
 
 
+--0.7--
+
+   *	Requires LibSnert 1.75.8
+
+   !	Configure and build changes to reflect changes in libsnert.
+
 --0.6--
 
    !	Corrections of compiler warning for gcc version 4.1.0 20060304
 	and 64-bit CPU, which is rather pedantic about char * vs
 	unsigned char * issues.
-	
+
    !	Fixed possible off by one error for body chunks less than 20
    	bytes. Reported by Ben Lentz.
 
@@ -26,11 +32,11 @@ is no set schedule for releases.
    	instead of always temporaily rejecting the mail. Sometimes its
    	better to let the mail keep flowing, so this option allows a
    	choice between none, accept, quarantine, later, reject, discard.
-   	   	
+
    -	Dropped policy=later since RFC 2821 4.1.1.4 DATA paragraph 4
    	states that its not possible to return partial failure after
    	receiving the message; either accept or reject.
-   	
+
   !!	clamdError(): fixed bug with second use of variable arguments
    	that was not reset before being reused.
 
@@ -80,21 +86,21 @@ is no set schedule for releases.
 
    +	Add a brief comparision of milter-clamc vs. clamav.milter to
    	the documentation.
-   	
+
    !	The quarantine queue reason now includes the virus name.
-   
+
    !	Increased default T= timeouts.
-   
+
    -	Removed "message is clean" log entries as being overly verbose.
    	Only log infections.
-   	
+
    !	Reduce number of similar log messages for -p reject.
-   
+
    !	Fixed invalid option error with too many printf format characters.
-   
-   +	Added "-p later" as a policy choice for consistency with other 
+
+   +	Added "-p later" as a policy choice for consistency with other
    	milters.
-   	
+
    !	Change -T default from 60s to 300s.
 
    !	Reverted back to libmilter's default (7210s) timeout. This
@@ -106,12 +112,12 @@ is no set schedule for releases.
 	But in theory you could be DoS for between 5 and 104 hours per
 	connection. If you want to change this then set in
 	sendmail.mc:
-	
+
 		define(`confTO_DATABLOCK',      `30m')
 		define(`confTO_COMMAND',        `5m')
 
    +	Add -I option enable extra informational headers.
-  	   	
+
 --0.1--
 
    +	Requires LibSnert 1.59.

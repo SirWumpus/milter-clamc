@@ -1,7 +1,7 @@
 /*
  * milter-clamc.c
  *
- * Copyright 2006 by Anthony Howe. All rights reserved.
+ * Copyright 2006, 2012 by Anthony Howe. All rights reserved.
  *
  * The following should be added to the sendmail.mc file:
  *
@@ -87,8 +87,8 @@
 #include <com/snert/lib/io/socket2.h>
 #include <com/snert/lib/sys/Time.h>
 
-#if LIBSNERT_MAJOR < 1 || LIBSNERT_MINOR < 63
-# error "LibSnert/1.63 or better is required"
+#if LIBSNERT_MAJOR < 1 || LIBSNERT_MINOR < 75
+# error "LibSnert 1.75.8 or better is required"
 #endif
 
 #ifdef MILTER_BUILD_STRING

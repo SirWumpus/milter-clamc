@@ -24,7 +24,7 @@ autom4te.cache*
 install.sh
 config.log
 config.status
-config.lineno
+configure.lineno
 VERSION.TXT
 FILE.TXT
 
