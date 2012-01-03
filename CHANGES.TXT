@@ -1,0 +1,120 @@
+CHANGES
+-------
+
+The major number changes for such things as code rewrites, changes in
+syntax, and/or dramatic changes in functionality. The minor number
+changes for corrections, enhancements, etc. made to the code. There
+is no set schedule for releases.
+
+--TODO--
+
+
+--0.6--
+
+   !	Corrections of compiler warning for gcc version 4.1.0 20060304
+	and 64-bit CPU, which is rather pedantic about char * vs
+	unsigned char * issues.
+	
+   !	Fixed possible off by one error for body chunks less than 20
+   	bytes. Reported by Ben Lentz.
+
+--0.5--
+
+   +	Requires LibSnert 1.63.
+
+   +	Add clamd-policy option in the event of an clamd socket error,
+   	instead of always temporaily rejecting the mail. Sometimes its
+   	better to let the mail keep flowing, so this option allows a
+   	choice between none, accept, quarantine, later, reject, discard.
+   	   	
+   -	Dropped policy=later since RFC 2821 4.1.1.4 DATA paragraph 4
+   	states that its not possible to return partial failure after
+   	receiving the message; either accept or reject.
+   	
+  !!	clamdError(): fixed bug with second use of variable arguments
+   	that was not reset before being reused.
+
+   +	access-db now supports socket-map, flat-file, and SQLite3
+	lookups in addition to Berkeley DB. The SQLite3 behaviour
+	can be disabled via LibSnert's ./configure script.
+
+   !	Rejection based on access-db blacklisting now disabled. Some
+	users prefer leaving blacklisting upto Sendmail and not the
+	milter. Reported by Derek Balling and others.
+
+  !!	filterBody(): Fixed obsecure bug when the message content is
+	less than 20 bytes long, adding a terminating NUL to the body
+	chunk for the trace log output actually overwrote off the end
+	of a dynamic buffer on some Linux systems causing the milter
+	to crash. Reported by Martin Lathoud.
+
+--0.4--
+
+  !!	License 1.4 which provides additional details with regards to
+  	possible license controls used, the possibility of "phone
+  	home code" and its general contents, and related privacy
+  	statement.
+
+   +	Add check for filterOpen() got NULL socket address pointer
+	passed to filterOpen() which inidicates an unsupported address
+	type. The connection is simply accepted to bypass the milter.
+
+--0.3--
+
+   +	Requires LibSnert 1.61.
+
+  !!	Complete replacement of option specification and no backwards.
+	compatibility. The newer format allows for better integration
+	of previously undocumented libsnert options and for the
+	inclusion of future enhancements.
+
+   !	filterClose(): remove reporting of "null workspace error",
+	which can occur when a client connection is rejected before or
+	by filterOpen().
+
+   !	Minor corrections for gcc -Wall warnings.
+
+--0.2--
+
+   +	Requires LibSnert 1.60.
+
+   +	Add a brief comparision of milter-clamc vs. clamav.milter to
+   	the documentation.
+   	
+   !	The quarantine queue reason now includes the virus name.
+   
+   !	Increased default T= timeouts.
+   
+   -	Removed "message is clean" log entries as being overly verbose.
+   	Only log infections.
+   	
+   !	Reduce number of similar log messages for -p reject.
+   
+   !	Fixed invalid option error with too many printf format characters.
+   
+   +	Added "-p later" as a policy choice for consistency with other 
+   	milters.
+   	
+   !	Change -T default from 60s to 300s.
+
+   !	Reverted back to libmilter's default (7210s) timeout. This
+	should silence many of the reported sendmail to milter timeout
+	errors and/or broken connections caused by the milter timing
+	out sooner than sendmail does with the current SMTP client.
+	The sendmail defaults for each SMTP command and receiving the
+	message content is 1h each and so libmilter allows for 2h 10s.
+	But in theory you could be DoS for between 5 and 104 hours per
+	connection. If you want to change this then set in
+	sendmail.mc:
+	
+		define(`confTO_DATABLOCK',      `30m')
+		define(`confTO_COMMAND',        `5m')
+
+   +	Add -I option enable extra informational headers.
+  	   	
+--0.1--
+
+   +	Requires LibSnert 1.59.
+
+
+
